@@ -84,20 +84,24 @@ Rest Parameters 는 정해지지 않은 수 매개변수를 **실제 배열**로
 👉시나리오: 개수가 정해지지 않은 매개변수를 입력 받아 이의 총 합을 구하는 함수를 작성하세요.
 
 ### 불—편
-
-    function sum (a, b, c, d, e, f, g, h, i, j, k, l, m, n, o, p, q, r, s, t, u, v, w, x, y, z) {
-      return a + b + c + d + e + f + g + h + i + j + k + l + m + n + o + p + q + r + s + t + u + v + w + x + y + z
-    } // [a-z] 까지 입력받을 수 있습니다. 즉 매개변수의 개수가 정해져 있습니다. 👎
     
-    console.log(sum(1, 2, 3, 4, 5, 6, 7, 8)) // [i-z] 까지 undefined, 때문에 NaN 출력 👎
+```js
+function sum (a, b, ... y, z) {
+  return a + b + ... + y + z
+} // [a-z] 까지 입력받을 수 있습니다. 즉 매개변수의 개수가 정해져 있습니다. 👎
+    
+console.log(sum(1, 2, 3, 4, 5, 6, 7, 8)) // [i-z] 까지 undefined, 때문에 NaN 출력 👎
+```
 
 ### 편—안 ✅
 
-    function sum (...params) {
-      return params.reduce((prev, curr) => prev + curr)
-    } // 매개변수가 몇 개든 합을 잘 구합니다.
-    
-    console.log(sum(1, 2, 3, 4, 5, 6, 7, 8, 9, 10)) // -> 55 👍
+```js
+function sum (...params) {
+  return params.reduce((prev, curr) => prev + curr)
+} // 매개변수가 몇 개든 합을 잘 구합니다.
+
+console.log(sum(1, 2, 3, 4, 5, 6, 7, 8, 9, 10)) // -> 55 👍
+```
 
 ## 2. 또 다른 나머지 매개변수 예시
 
@@ -105,22 +109,26 @@ Rest Parameters 는 정해지지 않은 수 매개변수를 **실제 배열**로
 
 ### 편—안 ✅
 
-    function multiply (multiplier, ...params) {
-      return params.map(param => multiplier * param)
-    }
-    
-    console.log(multiply(5, 1, 2, 3, 4)) // -> [ 5, 10, 15, 20 ] 👍
+```js
+function multiply (multiplier, ...params) {
+  return params.map(param => multiplier * param)
+}
+
+console.log(multiply(5, 1, 2, 3, 4)) // -> [ 5, 10, 15, 20 ] 👍
+```
 
 ## 3. arguments 와 다른점
 
 `arguments` 는 유사 배열입니다. 때문에 `map, reduce, forEach` 와 같은 배열 메소드를 호출 할 수 없습니다.
 
-    function sum (a, b, c) {
-    	// -> TypeError: arguments.reduce is not a function
-      return arguments.reduce((prev, curr) => prev + curr)
-    }
-    
-    sum(1, 2, 3)
+```js
+function sum (a, b, c) {
+  // -> TypeError: arguments.reduce is not a function
+  return arguments.reduce((prev, curr) => prev + curr)
+}
+
+sum(1, 2, 3)
+```
 
 ---
 
@@ -142,44 +150,48 @@ Rest Parameters 는 정해지지 않은 수 매개변수를 **실제 배열**로
 
 ### 불—편
 
-    const me = {
-      firstName: '당근',
-      lastName: '손',
-      hobby: ['🐳', '🍏', '🎒', '🌼'],
-      location: '지구',
-    
-      car: '테슬라'
-    }
-    
-    // 윽... 내 눈...!
-    console.log('이름', me.lastName, me.firstName)
-    console.log('지역', me.location)
-    console.log('취미', me.hobby)
-    
-    // 더 심플하게 안될까요?
-    if (me.car) {
-      console.log('자동차', me.car)
-    } else {
-      console.log('자동차', '없음')
-    }
+```js
+const me = {
+  firstName: '당근',
+  lastName: '손',
+  hobby: ['🐳', '🍏', '🎒', '🌼'],
+  location: '지구',
+
+  car: '테슬라'
+}
+
+// 윽... 내 눈...!
+console.log('이름', me.lastName, me.firstName)
+console.log('지역', me.location)
+console.log('취미', me.hobby)
+
+// 더 심플하게 안될까요?
+if (me.car) {
+  console.log('자동차', me.car)
+} else {
+  console.log('자동차', '없음')
+}
+```
 
 ### 편—안 ✅
 
-    const me = {
-      firstName: '당근',
-      lastName: '손',
-      hobby: ['🐳', '🍏', '🎒', '🌼'],
-      location: '지구',
-    
-      car: '테슬라'
-    }
-    
-    const { firstName, lastName, hobby, location, car = '없음' } = me // 좋습니다. 👍
-    
-    console.log('이름', lastName, firstName)
-    console.log('지역', location)
-    console.log('취미', hobby)
-    console.log('자동차', car)
+```js
+const me = {
+  firstName: '당근',
+  lastName: '손',
+  hobby: ['🐳', '🍏', '🎒', '🌼'],
+  location: '지구',
+
+  car: '테슬라'
+}
+
+const { firstName, lastName, hobby, location, car = '없음' } = me // 좋습니다. 👍
+
+console.log('이름', lastName, firstName)
+console.log('지역', location)
+console.log('취미', hobby)
+console.log('자동차', car)
+```
 
 ## 2. 배열 구조 분해 할당
 
@@ -193,23 +205,27 @@ Rest Parameters 는 정해지지 않은 수 매개변수를 **실제 배열**로
 
 ### 불—편
 
-    const arr1 = [1, 2, 3]
-    const arr2 = arr1 // arr2 는 arr1 를 참조합니다.
-    
-    arr1.push(4)
-    
-    console.log(arr1) // -> [ 1, 2, 3, 4 ]
-    console.log(arr2) // -> [ 1, 2, 3, 4 ] arr2 까지 변형됐습니다. 👎
+```js
+const arr1 = [1, 2, 3]
+const arr2 = arr1 // arr2 는 arr1 를 참조합니다.
+
+arr1.push(4)
+
+console.log(arr1) // -> [ 1, 2, 3, 4 ]
+console.log(arr2) // -> [ 1, 2, 3, 4 ] arr2 까지 변형됐습니다. 👎
+```
 
 ### 편—안 ✅
 
-    const arr1 = [1, 2, 3]
-    const arr2 = [...arr1] // arr1 를 구조 분해시켜 '새로운' 배열을 만듭니다. 👍
-    
-    arr1.push(4)
-    
-    console.log(arr1) // -> [ 1, 2, 3, 4 ]
-    console.log(arr2) // -> [ 1, 2, 3 ] 👍
+```js
+const arr1 = [1, 2, 3]
+const arr2 = [...arr1] // arr1 를 구조 분해시켜 '새로운' 배열을 만듭니다. 👍
+
+arr1.push(4)
+
+console.log(arr1) // -> [ 1, 2, 3, 4 ]
+console.log(arr2) // -> [ 1, 2, 3 ] 👍
+```
 
 ### 활용 2: 또 다른 안전한 복사
 
@@ -217,27 +233,31 @@ Rest Parameters 는 정해지지 않은 수 매개변수를 **실제 배열**로
 
 ### 불—편
 
-    const fruits = ['🍎', '🍌', '🥝']
-    
-    // apple 과 rest 는 fruits 를 참조합니다.
-    const apple = fruits.shift() // fruits 의 첫번째 원소를 제거하고, apple 에 할당
-    const rest = fruits
-    
-    console.log('첫번째 과일', apple) // -> 🍎
-    console.log('나머지 과일', ...rest) // -> 🍌 🥝
-    
-    console.log(fruits) // -> [ '🍌', '🥝'] fruits 배열이 변형됨 👎
+```js
+const fruits = ['🍎', '🍌', '🥝']
+
+// apple 과 rest 는 fruits 를 참조합니다.
+const apple = fruits.shift() // fruits 의 첫번째 원소를 제거하고, apple 에 할당
+const rest = fruits
+
+console.log('첫번째 과일', apple) // -> 🍎
+console.log('나머지 과일', ...rest) // -> 🍌 🥝
+
+console.log(fruits) // -> [ '🍌', '🥝'] fruits 배열이 변형됨 👎
+```
 
 ### 편—안 ✅
 
-    const fruits = ['🍎', '🍌', '🥝']
-    
-    const [apple, ...rest] = fruits // 배열을 구조 분해시켜 apple 과 rest 가 fruits 를 참조하지 않도록 해줍니다.
-    
-    console.log('첫번째 과일', apple)  // -> 🍎
-    console.log('나머지 과일', ...rest)  // -> 🍌 🥝
-    
-    console.log(fruits) // -> [ '🍎', '🍌', '🥝' ] fruits 배열 변형 안됨 👍
+```js
+const fruits = ['🍎', '🍌', '🥝']
+
+const [apple, ...rest] = fruits // 배열을 구조 분해시켜 apple 과 rest 가 fruits 를 참조하지 않도록 해줍니다.
+
+console.log('첫번째 과일', apple)  // -> 🍎
+console.log('나머지 과일', ...rest)  // -> 🍌 🥝
+
+console.log(fruits) // -> [ '🍎', '🍌', '🥝' ] fruits 배열 변형 안됨 👍
+```
 
 ---
 
@@ -257,41 +277,47 @@ Default Parameter 는 매개변수에 기본 값을 할당합니다.
 
 ### 불—편
 
-    function aboutMe (name, age) {
-      // 윽... 내 눈...! 👎
-      // 더 심플하게 안 될까요?
-      age = (typeof age !== 'undefined') ? age : '비공개'
-    
-      console.log(name, age)
-    }
-    
-    aboutMe('손당근') // -> 손당근 비공개
-    aboutMe('손당근', 0) // -> 손당근 0
-    aboutMe('손당근', 20) // -> 손당근 20
+```js
+function aboutMe (name, age) {
+  // 윽... 내 눈...! 👎
+  // 더 심플하게 안 될까요?
+  age = (typeof age !== 'undefined') ? age : '비공개'
+
+  console.log(name, age)
+}
+
+aboutMe('손당근') // -> 손당근 비공개
+aboutMe('손당근', 0) // -> 손당근 0
+aboutMe('손당근', 20) // -> 손당근 20
+```
 
 ### 불—편
 
-    function aboutMe (name, age) {
-      if (!age) { //  0 은 '거짓 값' 이기 때문에 0 살을 입력해도 '비공개'를 출력합니다. 👎
-        age = '비공개'
-      }
-    
-      console.log(name, age)
-    }
-    
-    aboutMe('손당근') // -> 손당근 비공개
-    aboutMe('손당근', 0) // -> 손당근 비공개 ... 0 살을 입력했지만 '비공개'가 출력됐네요? 👎
-    aboutMe('손당근', 20) // -> 손당근 20
+```js
+function aboutMe (name, age) {
+  if (!age) { //  0 은 '거짓 값' 이기 때문에 0 살을 입력해도 '비공개'를 출력합니다. 👎
+    age = '비공개'
+  }
+
+  console.log(name, age)
+}
+
+aboutMe('손당근') // -> 손당근 비공개
+aboutMe('손당근', 0) // -> 손당근 비공개 ... 0 살을 입력했지만 '비공개'가 출력됐네요? 👎
+aboutMe('손당근', 20) // -> 손당근 20
+```
 
 ### 편—안 ✅
 
-    function aboutMe (name, age = '비공개') { // 모든 조건을 만족하며 심플합니다. 👍 
-      console.log(name, age)
-    }
-    
-    aboutMe('손당근') // -> 손당근 비공개
-    aboutMe('손당근') // -> 손당근 0
-    aboutMe('손당근') // -> 손당근 20
+```js
+function aboutMe (name, age = '비공개') { // 모든 조건을 만족하며 심플합니다. 👍 
+  console.log(name, age)
+}
+
+aboutMe('손당근') // -> 손당근 비공개
+aboutMe('손당근') // -> 손당근 0
+aboutMe('손당근') // -> 손당근 20
+```
 
 ## 🤷‍♀️ 하지만...
 
@@ -312,17 +338,19 @@ Default Parameter 는 매개변수에 기본 값을 할당합니다.
 
 ### 편—안 ✅
 
-    function aboutMe ({ name = '비공개', age = '비공개' }) { // '순서' 가 사라진 매개변수들 👍👍👍
-      console.log(name, age)
-    }
-    
-    aboutMe({ name: '손당근', age: 20 }) // -> 손당근 20
-    aboutMe({ age: 20, name: '손당근' }) // -> 손당근 20 ... 심지어 매개변수 순서까지 바껴도 잘 출력합니다!
-    
-    aboutMe({ name: '손당근' }) // -> 손당근 비공개 ... 나이를 넘기지 않았으므로 '비공개' 를 출력합니다.
-    aboutMe({ age: 20 }) // -> 비공개 비공개
-    
-    aboutMe({}) // -> 비공개 비공개 ... 둘 다 '비공개' 로 출력 가능합니다!
+```js
+function aboutMe ({ name = '비공개', age = '비공개' }) { // '순서' 가 사라진 매개변수들 👍👍👍
+  console.log(name, age)
+}
+
+aboutMe({ name: '손당근', age: 20 }) // -> 손당근 20
+aboutMe({ age: 20, name: '손당근' }) // -> 손당근 20 ... 심지어 매개변수 순서까지 바껴도 잘 출력합니다!
+
+aboutMe({ name: '손당근' }) // -> 손당근 비공개 ... 나이를 넘기지 않았으므로 '비공개' 를 출력합니다.
+aboutMe({ age: 20 }) // -> 비공개 비공개
+
+aboutMe({}) // -> 비공개 비공개 ... 둘 다 '비공개' 로 출력 가능합니다!
+```
 
 ---
 
@@ -340,28 +368,32 @@ Named Parameter 는 매개변수에 이름을 지정해줍니다.
 
 ### 불—편
 
-    // 매개변수에 순서가 정해져있기 때문에 조건을 만족하지 못합니다. 👎
-    function aboutMe (age, job) {
-      age && console.log('나이', age)
-      job && console.log('직업', job)
-    }
-    
-    aboutMe(20) // -> 나이 20 ... 나쁘지 않아 보입니다. 하지만 다음 라인을 봐보세요.
-    // 함수가 기대한 것처럼 작동하지 않습니다!
-    aboutMe('개발자') // -> 나이 개발자 ... 나이가 개발자라고 나왔군요. 👎
+```js
+// 매개변수에 순서가 정해져있기 때문에 조건을 만족하지 못합니다. 👎
+function aboutMe (age, job) {
+  age && console.log('나이', age)
+  job && console.log('직업', job)
+}
+
+aboutMe(20) // -> 나이 20 ... 나쁘지 않아 보입니다. 하지만 다음 라인을 봐보세요.
+// 함수가 기대한 것처럼 작동하지 않습니다!
+aboutMe('개발자') // -> 나이 개발자 ... 나이가 개발자라고 나왔군요. 👎
+```
 
 ### 편—안 ✅
 
-    // Named Parameter 덕분에 조건을 만족합니다.
-    // 선택적으로 매개변수를 입력할 수 있습니다. 👍
-    function aboutMe ({ age, job }) {
-      age && console.log('나이', age)
-      job && console.log('직업', job)
-    }
-    
-    // 나이와 직업 중 하나만 입력도 가능합니다. 👍
-    aboutMe({ age: 20 }) // -> 나이 20
-    aboutMe({ job: '개발자' }) // -> 직업 개발자
+```js
+// Named Parameter 덕분에 조건을 만족합니다.
+// 선택적으로 매개변수를 입력할 수 있습니다. 👍
+function aboutMe ({ age, job }) {
+  age && console.log('나이', age)
+  job && console.log('직업', job)
+}
+
+// 나이와 직업 중 하나만 입력도 가능합니다. 👍
+aboutMe({ age: 20 }) // -> 나이 20
+aboutMe({ job: '개발자' }) // -> 직업 개발자
+```
 
 ### 활용2: 순서 없는 매개변수
 
@@ -375,29 +407,33 @@ Named Parameter 는 매개변수에 이름을 지정해줍니다.
 
 ### 불—편
 
-    function render (name, width, height, backgroundColor, borderColor, borderWidth, font) {
-      // doSomething ...
-    }
-    
-    // 매개변수 순서를 하나라도 틀리면 큰 일납니다.
-    render('새 창', 640, 480, 'red', 'green', 1, 'Apple Bold')
+```js
+function render (name, width, height, backgroundColor, borderColor, borderWidth, font) {
+  // doSomething ...
+}
+
+// 매개변수 순서를 하나라도 틀리면 큰 일납니다.
+render('새 창', 640, 480, 'red', 'green', 1, 'Apple Bold')
+```
 
 ### 편—안 ✅
 
-    function render ({ name, width, height, backgroundColor, borderColor, borderWidth, font }) {
-      // doSomething ...
-    }
-    
-    // 이제 매개변수 순서와 상관없이 안전하게 호출 가능합니다. 👍
-    render({
-      height: 480,
-      borderColor: 'green',
-      backgroundColor: 'red',
-      font: 'Apple Bold',
-      name: '새 창',
-      borderWidth: 1,
-      width: 640
-    })
+```js
+function render ({ name, width, height, backgroundColor, borderColor, borderWidth, font }) {
+  // doSomething ...
+}
+
+// 이제 매개변수 순서와 상관없이 안전하게 호출 가능합니다. 👍
+render({
+  height: 480,
+  borderColor: 'green',
+  backgroundColor: 'red',
+  font: 'Apple Bold',
+  name: '새 창',
+  borderWidth: 1,
+  width: 640
+})
+```
 
 ---
 
@@ -429,19 +465,23 @@ Named Parameter 는 매개변수에 이름을 지정해줍니다.
 
 ### 불—편
 
-    const arr = [1, 2, 3]
-    
-    if (arr.length === 0) { // 좀 더 심플하게 안될까요?
-      console.log('배열이 비어있음!')
-    }
+```js
+const arr = [1, 2, 3]
+
+if (arr.length === 0) { // 좀 더 심플하게 안될까요?
+  console.log('배열이 비어있음!')
+}
+```
 
 ### 편—안 ✅
 
-    const arr = [1, 2, 3]
-    
-    if (!arr.length) { // 👍 좋습니다! 0 은 Falsy 기 때문에 배열이 비어있다면 조건을 만족합니다.
-      console.log('배열이 비어있음!')
-    }
+```js
+const arr = [1, 2, 3]
+
+if (!arr.length) { // 👍 좋습니다! 0 은 Falsy 기 때문에 배열이 비어있다면 조건을 만족합니다.
+  console.log('배열이 비어있음!')
+}
+```
 
 ### 활용 2: 안전히 메소드 호출하기
 
@@ -451,15 +491,19 @@ Named Parameter 는 매개변수에 이름을 지정해줍니다.
 
 ### 불—편
 
-    const notArray = 5000
-    
-    notArray.forEach(it => console.log(it)) // -> TypeError: notArray.forEach is not a function
+```js
+const notArray = 5000
+
+notArray.forEach(it => console.log(it)) // -> TypeError: notArray.forEach is not a function
+```
 
 ### 편—안 ✅
 
-    const iAmNotArray = 5000
-    
-    iAmNotArray.forEach && iAmNotArray.forEach(it => console.log(it)) // 👍
+```js
+const iAmNotArray = 5000
+
+iAmNotArray.forEach && iAmNotArray.forEach(it => console.log(it)) // 👍
+```
 
 ## 2. 참 값
 
@@ -471,26 +515,29 @@ Named Parameter 는 매개변수에 이름을 지정해줍니다.
 
 ### 불—편
 
-    const movie = {
-      ironman: {
-        ko: '아이언맨 4',
-        en: 'Iron Man 4'
-      }
-    }
-    
-    // 좀 더 심플하게 안 될까요?
-    if (movie.ironman.ko) {
-      console.log('한글 자막 개봉')
-    }
+```js
+const movie = {
+  ironman: {
+    ko: '아이언맨 4',
+    en: 'Iron Man 4'
+  }
+}
+
+// 좀 더 심플하게 안 될까요?
+if (movie.ironman.ko) {
+  console.log('한글 자막 개봉')
+}
+```
 
 ### 편—안 ✅
 
-    const movie = {
-      ironman: {
-        ko: '아이언맨 4',
-        en: 'Iron Man 4'
-      }
-    }
-    
-    movie.ironman.ko && console.log('한글 자막 개봉') // 좋습니다. 👍
+```js
+const movie = {
+  ironman: {
+    ko: '아이언맨 4',
+    en: 'Iron Man 4'
+  }
+}
 
+movie.ironman.ko && console.log('한글 자막 개봉') // 좋습니다. 👍
+```
