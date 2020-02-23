@@ -1,8 +1,12 @@
 # 소개 💁‍♂️
 
-[![JavaScript Style Guide](https://cdn.rawgit.com/standard/standard/master/badge.svg)](https://github.com/standard/standard) 
+<p align="center">
+    <img src="Modern JS.png" width="150" title="Modern JS">
+</p>
 
-![ES6+ Badge](https://camo.githubusercontent.com/567e52200713e0f0c05a5238d91e1d096292b338/68747470733a2f2f696d672e736869656c64732e696f2f62616467652f65732d362b2d627269676874677265656e2e737667)
+<img src="https://cdn.rawgit.com/standard/standard/master/badge.svg" width="75" title="Standard JS">
+
+<img src="https://camo.githubusercontent.com/567e52200713e0f0c05a5238d91e1d096292b338/68747470733a2f2f696d672e736869656c64732e696f2f62616467652f65732d362b2d627269676874677265656e2e737667" width="60" title="ES6+">
 
 모던 자바스크립트를 소개합니다. 모던 자바스크립트는 점점 현대적이고 실용적으로 변화하고 있는 ECMAScript 에 적응하는 방법을 알려줍니다.
 
