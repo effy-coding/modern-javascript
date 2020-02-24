@@ -49,7 +49,7 @@
 
 [Truthy and Falsy](#truthy-and-falsy)
 
-[Array.prototype.map](#Array.prototype.map)
+[Array.prototype.map](#arrayprototypemap)
 
 Array.prototype.reduce
 
