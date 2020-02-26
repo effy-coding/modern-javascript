@@ -51,8 +51,6 @@
 
 [Array.prototype.map](#arrayprototypemap)
 
-Array.prototype.reduce
-
 Array.prototype.filter
 
 Array.prototype.includes
@@ -60,6 +58,8 @@ Array.prototype.includes
 Array.prototype.every
 
 Array.prototype.some
+
+Array.prototype.reduce
 
 String.prototype.split
 
@@ -537,7 +537,7 @@ if (movie.ironman.ko) {
 
 ### 정의
 
-`map` 은 주어진 배열의 **모든 원소**에 규칙을 적용한 **새로운 배열**을 생성합니다.
+`map` 은 주어진 배열의 **모든 원소**에 규칙(`callback`)을 적용한 **새로운 배열**을 생성합니다.
 
 ### 특징 (중요🐉)
 
