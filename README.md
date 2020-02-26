@@ -502,7 +502,9 @@ notArray.forEach(it => console.log(it)) // -> TypeError: notArray.forEach is not
 ```js
 const iAmNotArray = 5000
 
-iAmNotArray.forEach && iAmNotArray.forEach(it => console.log(it)) // 👍
+if (iAmNotArray.forEach) {
+  iAmNotArray.forEach(it => console.log(it)) // 👍
+}
 ```
 
 ## 2. 참 값
