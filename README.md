@@ -513,22 +513,6 @@ iAmNotArray.forEach && iAmNotArray.forEach(it => console.log(it)) // 👍
 
 `movie` 객체를 참조해 <아이언맨> 이 한글 자막을 지원하는지 확인해 봅시다.
 
-### 불—편
-
-```js
-const movie = {
-  ironman: {
-    ko: '아이언맨 4',
-    en: 'Iron Man 4'
-  }
-}
-
-// 좀 더 심플하게 안 될까요?
-if (movie.ironman.ko) {
-  console.log('한글 자막 개봉')
-}
-```
-
 ### 편—안 ✅
 
 ```js
@@ -539,7 +523,10 @@ const movie = {
   }
 }
 
-movie.ironman.ko && console.log('한글 자막 개봉') // 좋습니다. 👍
+// 좋습니다. 👍
+if (movie.ironman.ko) {
+  console.log('한글 자막 개봉')
+}
 ```
 
 ---
