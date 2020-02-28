@@ -699,12 +699,3 @@ const metropolitanCities = cities.map(city => { return `${city}광역시` }) // 
 
 console.log(metropolitanCities) // -> [ '부산광역시', '대구광역시', '인천광역시', '광주광역시' ]
 ```
-
-### 좀 더 심플하게 ✅
-
-```js
-const cities = ['부산', '대구', '인천', '광주']
-const metropolitanCities = cities.map(city => `${city}광역시`) // 👍
-
-console.log(metropolitanCities) // -> [ '부산광역시', '대구광역시', '인천광역시', '광주광역시' ]
-```
