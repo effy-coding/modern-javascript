@@ -39,9 +39,13 @@
 
 ## 모던 자바스크립트가 다루는 개념
 
-[Rest Parameters](#rest-parameters)
+[Spread Syntax](#spread-syntax)
 
 [Destructuring Assignment](#destructuring-assignment)
+
+[Rest Parameters](#rest-parameters)
+
+[Rest Elements](#rest-elements)
 
 [Default Parameter](#default-parameter)
 
@@ -70,6 +74,147 @@ Object.entries
 Object.values
 
 Object.keys
+
+---
+
+# Spread Syntax
+
+### 정의
+
+Spread Syntax 는 특정 객체 혹은 배열의 나머지 요소들을 어떤 객체 혹은 배열 리터럴에 풀어 놓습니다.
+
+### 특징
+
+Spread Syntax 로 새로운 변수가 선언되지 않습니다.
+
+## 1. 배열 전개구문
+
+## 활용 1: 안전한 복사
+
+👉 시나리오:  `arr1` 과 똑같은 `arr2` 를 만드세요.
+
+👉 조건:  `arr1` 의 변형이 `arr2` 에 영향을 미치지 않게 하세요.
+
+### 불—편
+
+```js
+const arr1 = [1, 2, 3]
+const arr2 = arr1 // arr2 는 arr1 를 참조합니다.
+
+arr1.push(4)
+
+console.log(arr1) // -> [ 1, 2, 3, 4 ]
+console.log(arr2) // -> [ 1, 2, 3, 4 ] arr2 까지 변형됐습니다. 👎
+```
+
+### 편—안 ✅
+
+```js
+const arr1 = [1, 2, 3]
+const arr2 = [...arr1] // arr1 를 구조 분해시켜 '새로운' 배열을 만듭니다. 👍
+
+arr1.push(4)
+
+console.log(arr1) // -> [ 1, 2, 3, 4 ]
+console.log(arr2) // -> [ 1, 2, 3 ] 👍
+```
+
+## 2. 객체 전개구문
+
+## 활용 1: 안전한 객체 얕은 병합
+
+👉 시나리오: 주어진 `obj1` 에 `obj2` 를 병합하세요.
+
+👉 조건1: 중복 필드가 있다면 `obj2` 의 값으로 덮어씌우세요.
+
+👉 조건2: 주어진 객체를 변형하지 마세요.
+
+### 불—편
+
+```js
+const obj1 = { a: 1, b: 1 }
+const obj2 = { b: 2, c: 2 }
+
+// 나쁘지 않습니다만 obj1 이 수정됩니다. 👎
+const merged = Object.assign(obj1, obj2)
+```
+
+### 편—안 ✅
+
+```js
+const obj1 = { a: 1, b: 1 }
+const obj2 = { b: 2, c: 2 }
+
+// 모든 조건을 만족하며 심플합니다! 👍
+const merged = { ...obj1, ...obj2 }
+```
+
+---
+
+# Destructuring Assignment
+
+### 정의
+
+배열이나 객체의 속성을 해체하여 그 값을 **개별 변수**에 담습니다.
+
+## 1. 객체 구조 분해 할당
+
+객체를 구조 분해해봅시다.
+
+## 활용 1: 기본값 할당
+
+👉 시나리오: `me` 객체를 출력하세요.
+
+👉 조건: `me.car` 가 존재하지 않으면 `없음` 을 출력하세요. 
+
+### 불—편
+
+```js
+const me = {
+  firstName: '당근',
+  lastName: '손',
+  hobby: ['🐳', '🍏', '🎒', '🌼'],
+  location: '지구',
+
+  car: '테슬라'
+}
+
+// 윽... 내 눈...!
+console.log('이름', me.lastName, me.firstName)
+console.log('지역', me.location)
+console.log('취미', me.hobby)
+
+// 더 심플하게 안될까요?
+if (me.car) {
+  console.log('자동차', me.car)
+} else {
+  console.log('자동차', '없음')
+}
+```
+
+### 편—안 ✅
+
+```js
+const me = {
+  firstName: '당근',
+  lastName: '손',
+  hobby: ['🐳', '🍏', '🎒', '🌼'],
+  location: '지구',
+
+  car: '테슬라'
+}
+
+const { firstName, lastName, hobby, location, car = '없음' } = me // 좋습니다. 👍
+
+console.log('이름', lastName, firstName)
+console.log('지역', location)
+console.log('취미', hobby)
+console.log('자동차', car)
+```
+
+## 2. 배열 구조 분해 할당
+
+배열을 구조 분해해봅시다.
 
 ---
 
@@ -132,44 +277,49 @@ sum(1, 2, 3)
 
 ---
 
-# Destructuring Assignment
+
+# Rest Elements
 
 ### 정의
 
-배열이나 객체의 속성을 해체하여 그 값을 **개별 변수**에 담습니다.
+Rest Elements 는 객체나 배열의 나머지 요소들을 선언과 동시에 할당합니다.
 
-## 1. 객체 구조 분해 할당
+### 특징
 
-객체를 구조 분해해봅시다.
+나머지 요소에서 명시한 변수명이 선언되는 효과를 가지며 구조 분해 할당과 함께 사용 시 맨 마지막에 한 번만 위치할 수 있습니다.
 
-### 활용 1: 기본값 할당
+## 활용 1: 배열 나머지 요소
 
-👉 시나리오: `me` 객체를 출력하세요.
+👉 시나리오:  `arr` 배열의 첫번째 요소를 `first` 에 할당하고 나머지 요소를 `rest` 에 풀어 넣으세요.
 
-👉 조건: `me.car` 가 존재하지 않으면 `없음` 을 출력하세요. 
+### 편—안 ✅
+
+```js
+const arr = [1, 2, 3, 4, 5]
+const [first, ...rest] = arr
+
+console.log(first) // -> 1
+console.log(rest) // -> [ 2, 3, 4, 5 ] 👍
+```
+
+## 활용 2: 객체 나머지 요소
+
+👉 시나리오: `me` 객체의 `name` 필드만 `name` 에 할당하고 나머지 요소를 `rest` 에 풀어 넣으세요.
 
 ### 불—편
 
 ```js
 const me = {
-  firstName: '당근',
-  lastName: '손',
-  hobby: ['🐳', '🍏', '🎒', '🌼'],
-  location: '지구',
-
-  car: '테슬라'
+  name: '손당근',
+  hobby: '산책',
+  location: 'earth'
 }
-
-// 윽... 내 눈...!
-console.log('이름', me.lastName, me.firstName)
-console.log('지역', me.location)
-console.log('취미', me.hobby)
 
 // 더 심플하게 안될까요?
-if (me.car) {
-  console.log('자동차', me.car)
-} else {
-  console.log('자동차', '없음')
+const name = me.name
+const rest = {
+  hobby: me.hobby,
+  location: me.location
 }
 ```
 
@@ -177,86 +327,12 @@ if (me.car) {
 
 ```js
 const me = {
-  firstName: '당근',
-  lastName: '손',
-  hobby: ['🐳', '🍏', '🎒', '🌼'],
-  location: '지구',
-
-  car: '테슬라'
+  name: '손당근',
+  hobby: '산책',
+  location: 'earth'
 }
 
-const { firstName, lastName, hobby, location, car = '없음' } = me // 좋습니다. 👍
-
-console.log('이름', lastName, firstName)
-console.log('지역', location)
-console.log('취미', hobby)
-console.log('자동차', car)
-```
-
-## 2. 배열 구조 분해 할당
-
-배열을 구조 분해해봅시다.
-
-### 활용 1: 안전한 복사
-
-👉 시나리오:  `arr1` 과 똑같은 `arr2` 를 만드세요.
-
-👉 조건:  `arr1` 의 변형이 `arr2` 에 영향을 미치지 않게 하세요.
-
-### 불—편
-
-```js
-const arr1 = [1, 2, 3]
-const arr2 = arr1 // arr2 는 arr1 를 참조합니다.
-
-arr1.push(4)
-
-console.log(arr1) // -> [ 1, 2, 3, 4 ]
-console.log(arr2) // -> [ 1, 2, 3, 4 ] arr2 까지 변형됐습니다. 👎
-```
-
-### 편—안 ✅
-
-```js
-const arr1 = [1, 2, 3]
-const arr2 = [...arr1] // arr1 를 구조 분해시켜 '새로운' 배열을 만듭니다. 👍
-
-arr1.push(4)
-
-console.log(arr1) // -> [ 1, 2, 3, 4 ]
-console.log(arr2) // -> [ 1, 2, 3 ] 👍
-```
-
-### 활용 2: 또 다른 안전한 복사
-
-👉 시나리오: 주어진 `fruits` 배열을 이용해 첫번째 과일과 나머지 과일을 출력하세요.
-
-### 불—편
-
-```js
-const fruits = ['🍎', '🍌', '🥝']
-
-// apple 과 rest 는 fruits 를 참조합니다.
-const apple = fruits.shift() // fruits 의 첫번째 원소를 제거하고, apple 에 할당
-const rest = fruits
-
-console.log('첫번째 과일', apple) // -> 🍎
-console.log('나머지 과일', ...rest) // -> 🍌 🥝
-
-console.log(fruits) // -> [ '🍌', '🥝'] fruits 배열이 변형됨 👎
-```
-
-### 편—안 ✅
-
-```js
-const fruits = ['🍎', '🍌', '🥝']
-
-const [apple, ...rest] = fruits // 배열을 구조 분해시켜 apple 과 rest 가 fruits 를 참조하지 않도록 해줍니다.
-
-console.log('첫번째 과일', apple)  // -> 🍎
-console.log('나머지 과일', ...rest)  // -> 🍌 🥝
-
-console.log(fruits) // -> [ '🍎', '🍌', '🥝' ] fruits 배열 변형 안됨 👍
+const { name, ...rest } = me // 👍
 ```
 
 ---
@@ -267,7 +343,7 @@ console.log(fruits) // -> [ '🍎', '🍌', '🥝' ] fruits 배열 변형 안됨
 
 Default Parameter 는 매개변수에 기본 값을 할당합니다.
 
-## 1. 매개변수 기본 값
+## 활용1: 매개변수 기본 값
 
 👉 시나리오: 이름 그리고 나이를 출력하는 함수 `aboutMe` 를 작성하세요.
 
@@ -360,7 +436,7 @@ aboutMe({}) // -> 비공개 비공개 ... 둘 다 '비공개' 로 출력 가능�
 
 Named Parameter 는 매개변수에 이름을 지정해줍니다.
 
-### 활용1: 선택적 매개변수
+## 활용1: 선택적 매개변수
 
 👉 시나리오: 나이와 직업을 매개변수로 받고 출력하는 함수 `aboutMe` 를 작성하세요.
 
@@ -395,7 +471,7 @@ aboutMe({ age: 20 }) // -> 나이 20
 aboutMe({ job: '개발자' }) // -> 직업 개발자
 ```
 
-### 활용2: 순서 없는 매개변수
+## 활용2: 순서 없는 매개변수
 
 매개변수가 3개 이상이면 순서를 잘못 입력할 가능성이 큽니다.
 
@@ -459,7 +535,7 @@ render({
 
 `NaN`
 
-### 활용 1: 배열이 비어있나 확인하기
+## 활용 1: 배열이 비어있나 확인하기
 
 배열은 `length` 프로퍼티를 가지고 있습니다. 이를 검사해 배열이 비어있는지 확인 가능합니다.
 
@@ -483,7 +559,7 @@ if (!arr.length) { // 👍 좋습니다! 0 은 Falsy 기 때문에 배열이 비
 }
 ```
 
-### 활용 2: 안전히 메소드 호출하기
+## 활용 2: 안전히 메소드 호출하기
 
 존재하지 않는 함수를 호출하면 `TypeError: ... is not a function` 를 `throw` 합니다.
 
@@ -511,7 +587,7 @@ if (iAmNotArray.forEach) {
 
 위에서 언급한 거짓 값을 제외하면 모두 참 값입니다.
 
-### 활용1: 객체 요소 검사
+## 활용1: 객체 요소 검사
 
 `movie` 객체를 참조해 <아이언맨> 이 한글 자막을 지원하는지 확인해 봅시다.
 
