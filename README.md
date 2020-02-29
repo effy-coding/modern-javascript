@@ -53,8 +53,6 @@
 
 [Named Parameter](#named-parameter)
 
-[Truthy and Falsy](#truthy-and-falsy)
-
 [Promise](#promise)
 
 Async Await
@@ -518,102 +516,6 @@ render({
   borderWidth: 1,
   width: 640
 })
-```
-
----
-
-# Truthy and Falsy
-
-참과 거짓은 Boolean 을 기대하는 문맥에서 `true` `false` 로 평가되는 값입니다.
-
-## 1. 거짓 값
-
-자바스크립트에는 총 7 가지 거짓 값이 존재합니다.
-
-`false`
-
-`0`
-
-`0n`
-
-`''`
-
-`null`
-
-`undefined`
-
-`NaN`
-
-## 활용 1: 배열이 비어있나 확인하기
-
-배열은 `length` 프로퍼티를 가지고 있습니다. 이를 검사해 배열이 비어있는지 확인 가능합니다.
-
-### 불—편
-
-```js
-const arr = [1, 2, 3]
-
-if (arr.length === 0) { // 좀 더 심플하게 안될까요?
-  console.log('배열이 비어있음!')
-}
-```
-
-### 편—안 ✅
-
-```js
-const arr = [1, 2, 3]
-
-if (!arr.length) { // 👍 좋습니다! 0 은 Falsy 기 때문에 배열이 비어있다면 조건을 만족합니다.
-  console.log('배열이 비어있음!')
-}
-```
-
-## 활용 2: 안전히 메소드 호출하기
-
-존재하지 않는 함수를 호출하면 `TypeError: ... is not a function` 를 `throw` 합니다.
-
-이를 방지하고자 방어적인 코드를 작성해봅시다.
-
-### 불—편
-
-```js
-const notArray = 5000
-
-notArray.forEach(it => console.log(it)) // -> TypeError: notArray.forEach is not a function
-```
-
-### 편—안 ✅
-
-```js
-const iAmNotArray = 5000
-
-if (iAmNotArray.forEach) {
-  iAmNotArray.forEach(it => console.log(it)) // 👍
-}
-```
-
-## 2. 참 값
-
-위에서 언급한 거짓 값을 제외하면 모두 참 값입니다.
-
-## 활용1: 객체 요소 검사
-
-`movie` 객체를 참조해 <아이언맨> 이 한글 자막을 지원하는지 확인해 봅시다.
-
-### 편—안 ✅
-
-```js
-const movie = {
-  ironman: {
-    ko: '아이언맨 4',
-    en: 'Iron Man 4'
-  }
-}
-
-// 좋습니다. 👍
-if (movie.ironman.ko) {
-  console.log('한글 자막 개봉')
-}
 ```
 
 ---
