@@ -53,27 +53,15 @@
 
 [Truthy and Falsy](#truthy-and-falsy)
 
-[Array.prototype.map](#arrayprototypemap)
+Promise
 
-Array.prototype.filter
+Async Await
 
 Array.prototype.includes
-
-Array.prototype.every
-
-Array.prototype.some
-
-Array.prototype.reduce
-
-String.prototype.split
-
-String.prototype.join
 
 Object.entries
 
 Object.values
-
-Object.keys
 
 ---
 
@@ -624,78 +612,4 @@ const movie = {
 if (movie.ironman.ko) {
   console.log('한글 자막 개봉')
 }
-```
-
----
-
-# Array.prototype.map
-
-### 정의
-
-`map` 은 주어진 배열의 **모든 원소**에 규칙(`callback`)을 적용한 **새로운 배열**을 생성합니다.
-
-### 특징 (중요🐉)
-
-`map` 은 주어진 배열을 변형하지 않습니다.
-
-`map` 은 첫 `callback` 함수가 실행되기 직전에 주어진 배열의 복사본을 생성합니다. 때문에 `callback` 함수를 실행하는 동안에 주어진 배열이 변형되어도 결과에 영향을 미치지 않습니다.
-
-`map` 은 주어진 배열의 모든 원소에 `callback` 함수를 수행하는 것이 목표입니다. 따라서 중간에 `break or continue` 호출은 불가합니다.
-
-다시 말해 `map` 은 반복문이 아닙니다.
-
-`map` 을 탈출하는 방법은 에러를 `throw` 하는 겁니다. 하지만 이 방법을 되도록 사용하지 마세요. `for` 문을 고려하는 게 더 나을지도 모릅니다.
-
-### 예제 1
-
-👉 시나리오: 배열 `numbers` 의 모든 원소에 2 를 곱한 새로운 배열 `result` 를 만드세요.
-
-### 불—편
-
-```js
-const numbers = [1, 2, 3, 4, 5]
-const result = []
-
-// 장황합니다. 👎
-for (let i = 0; i < numbers.length; i++) {
-  result.push(numbers[i] * 2)
-}
-
-console.log(result) // -> [ 2, 4, 6, 8, 10 ]
-```
-
-### 편—안 ✅
-
-```js
-const numbers = [1, 2, 3, 4, 5]
-const result = numbers.map(number => { return number * 2 })
-
-console.log(result) // -> [ 2, 4, 6, 8, 10 ]
-```
-
-### 예제 2
-
-👉 시나리오: 배열 `cities` 의 모든 원소에 `광역시` 문자열을 뒤에 붙인 새로운 배열 `metropolitanCities` 을 만드세요.
-
-### 불—편
-
-```js
-const cities = ['부산', '대구', '인천', '광주']
-const metropolitanCities = []
-
-// 장황합니다. 👎
-for (let i = 0; i < cities.length; i++) {
-  metropolitanCities.push(cities[i] + '광역시')
-}
-
-console.log(metropolitanCities) // -> [ '부산광역시', '대구광역시', '인천광역시', '광주광역시' ]
-```
-
-### 편—안 ✅
-
-```js
-const cities = ['부산', '대구', '인천', '광주']
-const metropolitanCities = cities.map(city => { return `${city}광역시` }) // 👍
-
-console.log(metropolitanCities) // -> [ '부산광역시', '대구광역시', '인천광역시', '광주광역시' ]
 ```
