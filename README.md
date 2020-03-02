@@ -569,20 +569,23 @@ console.log('빨래 시작')
 ### 편—안 ✅
 
 ```js
-const delivery = new Promise((resolve) => {
-  setTimeout(() => {
-    console.log('배달 도착')
-    resolve()
-  }, 3000)
-})
+function delivery () {
+  return new Promise((resolve) => {
+    setTimeout(() => {
+      console.log('배달 도착')
+      resolve()
+    }, 3000)
+  })
+}
 
-delivery.then(() => {
+delivery().then(() => {
   console.log('빨래 시작') // 배달이 도착 한 후 빨래를 시작합니다.
 })
 
 // 결과 👍
 // 배달 도착
 // 빨래 시작
+
 ```
 
 ### 2. 실패 케이스 (rejected)
@@ -624,6 +627,7 @@ Promise 는 비동기 함수 호출의 결과를 정확히 보관할 의무를 �
 👉시나리오: Promise 가 일회성이라는 것을 증명하세요.
 
 ```js
+// new Promise 를 한순간 이미 프로미스 소진
 const promise = new Promise((resolve) => {
   console.log('안녕')
   resolve()
@@ -635,4 +639,5 @@ promise.then()
 
 // 결과 👍
 // 안녕 ... 단 한 번 출력됨
+
 ```
