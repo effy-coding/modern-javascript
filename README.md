@@ -55,7 +55,7 @@
 
 [Promise](#promise)
 
-Async Await
+[Async Function](#async-function)
 
 Array.prototype.includes
 
@@ -561,8 +561,8 @@ delivery()
 console.log('빨래 시작')
 
 // 결과 👎
-// 빨래 시작 ... 배달이 도착하기도 전에 빨래를 시작했습니다.
-// 배달 도착
+// -> 빨래 시작 ... 배달이 도착하기도 전에 빨래를 시작했습니다.
+// -> 배달 도착
 ```
 
 
@@ -583,8 +583,8 @@ delivery().then(() => {
 })
 
 // 결과 👍
-// 배달 도착
-// 빨래 시작
+// -> 배달 도착
+// -> 빨래 시작
 
 ```
 
@@ -616,7 +616,7 @@ delivery('월요일').then(() => {
 })
 
 // 결과 👍
-// 맥도날드 방문하기
+// -> 맥도날드 방문하기
 ```
     
 
@@ -638,6 +638,112 @@ promise.then()
 promise.then()
 
 // 결과 👍
-// 안녕 ... 단 한 번 출력됨
+// -> 안녕 ... 단 한 번 출력됨
+```
 
+---
+
+# Async Function
+
+### 정의
+
+Promise 객체를 반환하는 함수
+
+### 특징
+
+Async Function 은 `await` 키워드를 사용 가능케 해줍니다. `await` 키워드는 Async Function 에서만 유효합니다.
+
+`await` 키워드는 Async Function 이 끝나길(`return or throw`) 기다립니다.
+
+Async Function 는 `return` 혹은 `throw` 문으로 끝낼 수 있습니다.
+
+Async/Await 을 사용하면 일련의 비동기 작업을 비교적 쉽게 동기 방식으로 호출 가능케 해줍니다.
+
+### 참고
+
+예시 코드들은 간결한 코드를 보여주기 위해 `top-level-await` 기능이 탑재된 환경에서 진행했습니다. `top-level-await` 은 ECMAScript proposal stage 3 상태며 자세한 내용은 아래 링크를 참고해 주세요.
+
+[tc39/proposal-top-level-await - GitHub](https://github.com/tc39/proposal-top-level-await)
+
+### 1. 비동기 작업하기
+
+👉시나리오: 구글 검색 페이지를 크롤링 해오세요. 크롤링을 완료하는 것을 기다리지 말고 `이메일을 전송` 하세요.
+
+👉조건: Async Function 을 활용하세요.
+
+### 편—안 ✅
+
+```js
+async function google () {
+  // ...
+  console.log('구글 크롤링 완료')
+}
+
+google() // 비동기적으로 실행됩니다.
+console.log('이메일 전송')
+
+// 결과 👍
+// -> 이메일 전송
+// -> 구글 크롤링 완료
+```
+
+### 2. 비동기 작업을 기다리기
+
+👉시나리오: 구글 검색 페이지를 크롤링 해오세요. 크롤링을 완료한 뒤 `이메일을 전송` 하세요.
+
+👉조건: Async Function 을 활용하세요.
+
+### 편—안 ✅
+```js
+async function google () {
+  // ...
+  console.log('구글 크롤링 완료')
+}
+
+await google() // await 키워드가 동기적으로 실행하도록 만들어줍니다. 👍
+console.log('이메일 전송')
+
+// 결과 👍
+// -> 구글 크롤링 완료
+// -> 이메일 전송
+```
+### 3. 결과 다루기
+
+### 활용 1: 성공 (return)
+
+👉시나리오: `getUser` 함수로 사용자 정보를 가져오세요. 결과를 받아 `name` 필드의 값을 출력하세요.
+
+👉조건: `await` 키워드로 `getUser` 함수가 반환하는 값을 받아오세요.
+
+### 편—안 ✅
+
+```js
+async function getUser () {
+  const result = await dbQuery()
+  return result
+}
+
+const user = await getUser() // await 키워드가 getUser 함수의 반환을 기다립니다. 👍
+
+console.log(user.name)
+```
+
+### 활용2: 실패 (throw)
+
+👉시나리오: 배달 음식을 주문하세요. 배달이 도착하면(`return`) 음식을 먹고, 만약 주문이 취소되면(`throw`) 방문 포장을 해오세요.
+
+### 편—안 ✅
+
+```js
+async function delivery () {
+  // ...
+  throw new Error('주문 거절!')
+}
+
+try {
+  await delivery() // await 키워드가 덕분에 비동기 호출의 실패를 다룰수 있습니다. 👍
+  // ... 배달 음식 먹기
+} catch (error) {
+  // ... 방문 포장 해오기
+}
 ```
