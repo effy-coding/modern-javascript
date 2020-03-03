@@ -737,7 +737,7 @@ console.log(user.name)
 ```js
 async function delivery () {
   // ...
-  throw new Error('주문 거절!')
+  throw new Error('주문 !')
 }
 
 try {
