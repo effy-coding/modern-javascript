@@ -41,7 +41,7 @@
 
 [Let Declaration](#let-declaration)
 
-Const Declaration
+[Const Declaration](#const-declaration)
 
 [Spread Syntax](#spread-syntax)
 
@@ -111,6 +111,54 @@ b = 2 // -> TypeError: Assignment to constant variable.
 if (true) {
   var a = 1
   let b = 1
+}
+
+console.log(a) // -> 1
+console.log(b) // -> ReferenceError: b is not defined 👍
+```
+
+---
+
+# Const Declaration
+
+### 정의
+
+블록 레벨 유효 범위를 갖는 **상수**를 선언합니다.
+
+### 특징
+
+`const` 는 선언과 동시에 할당해야 합니다. 즉 언제나 초깃값을 필요로 합니다.
+
+`const` 는 재할당 할 수 없습니다.
+
+`const` 는 `let` 과 동일하게 블록 레벨 유효 범위를 가집니다.
+
+### 1. 선언과 동시에 할당
+
+👉시나리오: `const` 가 선언과 동시에 할당해야 함을 증명하세요.
+
+```js
+const a = 1
+const b // -> SyntaxError: Missing initializer in const declaration
+```
+
+### 2. 재할당 불가능
+
+👉시나리오: `const` 가 재할당 불가능함을 증명하세요.
+
+```js
+const a = 1
+a = 2 // -> TypeError: Assignment to constant variable
+```
+
+### 3. 유효 범위
+
+👉시나리오: `const` 가 `let` 과 동일하게 블록 레벨 유효 범위를 가지는 것을 증명하세요.
+
+```js
+if (true) {
+  var a = 1
+  const b = 1
 }
 
 console.log(a) // -> 1
