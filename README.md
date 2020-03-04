@@ -8,8 +8,6 @@
 
 <img src="https://camo.githubusercontent.com/567e52200713e0f0c05a5238d91e1d096292b338/68747470733a2f2f696d672e736869656c64732e696f2f62616467652f65732d362b2d627269676874677265656e2e737667" width="60" title="ES6+">
 
-<a href="https://www.buymeacoffee.com/qbd9Tv5" target="_blank"><img src="https://cdn.buymeacoffee.com/buttons/lato-blue.png" alt="Buy Me A Coffee" width="100"></a> 당근밭 심기 🥕 
-
 모던 자바스크립트를 소개합니다. 모던 자바스크립트는 점차 현대적이고 실용적으로 변화하고 있는 ECMAScript 에 적응하는 방법을 알려줍니다.
 
 현재 글을 쓰고 있는 시점인 2020년의 자바스크립트는 이미 풍부한 표준 내장 객체(Standard built-in objects)들을 가지고 있습니다. 덕분에 우리는 더 이상 전통적이고 거대한 라이브러리(lodash 와 같은)들을 사용할 필요성이 줄어들고 있습니다.
